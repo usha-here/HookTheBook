@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FaGripLines} from "react-icons/fa";
 
@@ -24,8 +24,10 @@ const Navbar = () => {
       title:'Profile',
       link:'/profile',
     },
-  ]
-  return (
+  ];
+  // for the navbar icon hidden state
+  const [Mobnav,setMobnav]=useState("hidden")         //by default is hidden
+   return (
     <>
     <nav className='z-50 relative flex bg-black text-white px-8 py-4 items-center justify-between'>
       <Link to ="/" className='flex items-center'>
@@ -49,23 +51,32 @@ const Navbar = () => {
           
           
           </div>
-          <button className='text-white text-2xl hover:text-zinc-400'>
+          <button className='text-white text-2xl hover:text-zinc-400' 
+          onClick={()=>(Mobnav=== "hidden"? setMobnav("block"):setMobnav("hidden"))}>
             <FaGripLines/>
           </button>
         </div>
     </nav>
-    <div className='bg-zinc-800 h-screen absolute top-0 left-0 w-full z-40 flex flex-col items-center justify-center'>
+    <div 
+    className={`${Mobnav} bg-zinc-800 h-screen absolute top-0 left-0 w-full z-40 flex flex-col items-center justify-center`}>
     {links.map((items,i)=>(
-          <Link to={items.link}
-           className='mb-8 text-white text-2xl hover:text-blue-500 font-semibold transition-all-duration-300' 
-          key={i}>
-            {items.title}{" "}
+          <Link 
+          to={items.link}
+          className={`${Mobnav} mb-8 text-white text-2xl hover:text-blue-500 font-semibold transition-all-duration-300`} 
+          key={i}
+            
+            onClick={()=>
+              (Mobnav=== "hidden"
+              ? setMobnav("block")
+              :setMobnav("hidden"))}
+>
+          {items.title}{" "}
             </Link>))}
 
             <Link to ="/LogIn" 
-            className='mb-8 text-2xl text-semibold px-3 py-1 border border-blue-500 text-white rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300'>LogIn</Link>
+            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 border border-blue-500 text-white rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300`}>LogIn</Link>
             <Link to="/SignUp" 
-            className='mb-8 text-2xl text-semibold px-3 py-1 bg-blue-500 rounded-2xl text-white hover:bg-white hover:text-zinc-800 transition-duration-300'>SignUp</Link>
+            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 bg-blue-500 rounded-2xl text-white hover:bg-white hover:text-zinc-800 transition-duration-300`}>SignUp</Link>
           </div> {/*z index 40 so that it can go back     mb-margin bottom*/}
     </>
 
