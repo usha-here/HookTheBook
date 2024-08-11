@@ -13,12 +13,12 @@ router.post("/sign-up",async(req,res)=>{
         if(username.length<4){
             return res.status(400).json({error:"Username must be at least 4 characters"})
         }
-
+        //check if username already exists
         const existingUsername=await User.findOne({username:username}) //findOne: This is a method provided by Mongoose, a popular Object Data Modeling (ODM) library for MongoDB.
         if (existingUsername){
             return res.status(400).json({error:"Username already exists"})
         }
-
+        //check if email already exists
         const existingEmail=await User.findOne({email:email})  //findOne is used to retrieve a single document from the collection that matches the specified filter.
         if (existingEmail){
             return res.status(400).json({error:"Email already exists"})
@@ -29,7 +29,7 @@ router.post("/sign-up",async(req,res)=>{
         }
         const hashPass= await bcrypt.hash(password,10);
 
-        const newUser= new User({
+        const newUser= new User({       //from models User
             username:username,
             email:email,
             password:hashPass,
@@ -81,7 +81,7 @@ router.post("/sign-in",async(req,res)=>{
 router.get("/get-user-information",authenticateToken, async(req,res)=>{   //authenticateToken func will go to userAuth.js file ->run it ->next()->will take to async(req,res)
     try{
         const {id}=req.headers;
-        const data=await User.findById(id).select('-password');                  //password is not shown in database
+        const data=await User.findById(id).select('-password'); //password is not shown in database
         return res.status(200).json(data);
 
 
