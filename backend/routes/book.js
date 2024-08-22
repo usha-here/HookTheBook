@@ -66,7 +66,7 @@ router.delete("/delete-book",authenticateToken,async(req,res)=>{
 //get all books api  with limited no of books to be shown
 router.get("/get-all-books", async(req,res)=>{
     try{
-        const books=await Book.find().sort({createdAt:-1}).limit(6);//for recently added
+        const books=await Book.find().sort({createdAt:-1}).limit(4);//for recently added
         return res.json({
             status:"Success",
             data:books,});

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <div className='h-[90vh] flex flex-col md:flex-row justify-center'>
+    <div className='h-[75vh] flex flex-col md:flex-row justify-center'>
     <div className="bg-[url('https://wallpaperaccess.com/full/922690.jpg')] h-96 w-full bg-cover bg-center p-20">
     <div className=' w-full mb:12 lg:w-3/6 flex flex-col items-start lg:items-start justify-center'>
     <h2 className='text-4xl lg:text-5xl font-bold text-teal-900 text-center lg:text-left'>

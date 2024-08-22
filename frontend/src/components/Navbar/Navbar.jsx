@@ -51,8 +51,11 @@ const Navbar = () => {
           
           
           </div>
-          <button className='text-white text-2xl hover:text-zinc-400' 
-          onClick={()=>(Mobnav=== "hidden"? setMobnav("block"):setMobnav("hidden"))}>
+          <button className='block md:hidden text-white text-2xl hover:text-zinc-400' 
+          onClick={()=>(
+            Mobnav=== "hidden"
+            ? setMobnav("block")
+            :setMobnav("hidden"))}>
             <FaGripLines/>
           </button>
         </div>

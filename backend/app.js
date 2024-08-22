@@ -2,7 +2,9 @@ const express=require("express")
 const app =express()
 app.use(express.json());
 require("dotenv").config();
+
 require("./connection/conn")
+const cors=require("cors");
 const User=require("./routes/user")
 const Book=require("./routes/book")
 const favourites=require("./routes/favourite")
