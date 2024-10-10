@@ -40,19 +40,40 @@ const Navbar = () => {
       <div className='nav-links-hookthebook md:flex items-center gap-4 '>
         <div className='hidden md:flex gap-4'>
           {links.map((items,i)=>(
-          <Link to={items.link}
+
+          <div className='flex items-center justify-center'>
+          {items.title==='Profile'? <Link
+          to={items.link}
+          className='px-4 py-1 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-duration-300'
+         key={i}
+         >
+           {items.title}{" "}
+           </Link>:<Link 
+           to={items.link}
            className='hover:text-blue-500 transition-all-duration-300' 
-          key={i}>
+          key={i}
+          >
             {items.title}{" "}
-            </Link>))}
+            </Link>}
           </div>
-          <div className='hidden md:flex gap-4'>
-            <Link to ="/LogIn" 
-            className='px-3 py-1 border border-blue-500 rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300'>LogIn</Link>
-            <Link to="/SignUp" className='px-3 py-1 bg-blue-500 rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300'>SignUp</Link>
-          
-          
+          ))}
           </div>
+         {isLoggedIn===false && (
+            <div className='hidden md:flex gap-4'>
+            <Link 
+            to ="/LogIn" 
+            className='px-4 py-1 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-duration-300'
+            >
+              LogIn
+              </Link>
+            <Link 
+            to="/SignUp" 
+            className='px-4 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-duration-300'
+            >
+              SignUp
+              </Link>
+              </div>
+                  )} 
           <button className='block md:hidden text-white text-2xl hover:text-zinc-400' 
           onClick={()=>(
             Mobnav=== "hidden"
@@ -76,13 +97,25 @@ const Navbar = () => {
               :setMobnav("hidden"))}
 >
           {items.title}{" "}
-            </Link>))}
-
-            <Link to ="/LogIn" 
-            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 border border-blue-500 text-white rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300`}>LogIn</Link>
-            <Link to="/SignUp" 
-            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 bg-blue-500 rounded-2xl text-white hover:bg-white hover:text-zinc-800 transition-duration-300`}>SignUp</Link>
-          </div> {/*z index 40 so that it can go back     mb-margin bottom*/}
+            </Link>
+          ))}
+          {isLoggedIn===false && (
+            <>
+            <Link 
+            to ="/LogIn" 
+            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 border border-blue-500 text-white rounded-2xl hover:bg-white hover:text-zinc-800 transition-duration-300`}
+            >
+              LogIn
+              </Link>
+            <Link 
+            to="/SignUp" 
+            className={`${Mobnav} mb-8 text-2xl text-semibold px-3 py-1 bg-blue-500 rounded-2xl text-white hover:bg-white hover:text-zinc-800 transition-duration-300`}
+            >
+              SignUp
+              </Link>
+              </>
+                  )} 
+              </div> {/*z index 40 so that it can go back     mb-margin bottom*/}
     </>
 
   )
