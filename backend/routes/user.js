@@ -8,7 +8,6 @@ const {authenticateToken}=require("./userAuth")
 router.post("/sign-up",async(req,res)=>{
     try{
         const {username,email,password,address}=req.body;
-
         //validations
         if(username.length<4){
             return res.status(400).json({error:"Username must be at least 4 characters"})

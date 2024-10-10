@@ -1,156 +1,130 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    address: ''
+  const [Values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    address: "",
   });
-
-  const handleChange = (e) => {
+const navigate= useNavigate();
+  const change = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    setValues({ ...Values, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add validation and API call logic here
-    console.log(formData);
-  };
+  const submit = async () => {
 
-  const styles = {
-    container: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      backgroundColor: '#f4f4f9'
-    },
-    form: {
-      backgroundColor: '#fff',
-      padding: '2rem',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      width: '100%',
-      maxWidth: '400px'
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      marginBottom: '1.5rem',
-      textAlign: 'center',
-      color: '#333'
-    },
-    formGroup: {
-      marginBottom: '1.5rem'
-    },
-    label: {
-      display: 'block',
-      marginBottom: '.5rem',
-      fontSize: '14px',
-      color: '#555'
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      borderRadius: '4px',
-      border: '1px solid #ddd',
-      fontSize: '14px'
-    },
-    button: {
-      width: '100%',
-      padding: '10px',
-      backgroundColor: '#007bff',
-      color: '#fff',
-      fontSize: '16px',
-      borderRadius: '4px',
-      border: 'none',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s'
-    },
-    buttonHover: {
-      backgroundColor: '#0056b3'
-    },
-    link: {
-      display: 'block',
-      textAlign: 'center',
-      marginTop: '1rem',
-      fontSize: '14px',
-      color: '#007bff',
-      textDecoration: 'none'
+    try {
+        if (
+            Values.username ===  "" ||
+    Values.email ==="" ||
+    
+    Values.password ==="" ||
+    
+    Values.address ==="" 
+    ){
+    alert("All fields are required");
+    } else {
+    const response= await axios.post("http://localhost:1000/ap1/v1/sign-up",
+        Values
+    );
+    alert(response.data.message);
+    navigate("/LogIn");
     }
-  };
+    } catch (error) {
+    console.log(error);
+    }
+    };
 
   return (
-    <div style={styles.container}>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <h2 style={styles.title}>Create Account</h2>
+    <div className="h-auto bg-zinc-900 px-12 py-8 flex items-center justify-center">
+      <div className="bg-zinc-800 rounded-lg px-8 py-5 w-full md:w-3/6 lg:w-2/6">
+        <p className="text-zinc-200 text-xl flex items-center justify-center font-bold">Sign Up</p>
+        <div className="mt-4">
+          <div>
+            <label htmlFor="username" className="text-zinc-400">
+              Username
+            </label>
+            <input
+              type="text"
+              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
+              placeholder="username"
+              name="username"
+              required
+              value={Values.username}
+              onChange={change}
+            />
+          </div>
 
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            style={styles.input}
-            placeholder="Enter your username"
-            required
-          />
+          <div className="mt-4">
+            <label htmlFor="email" className="text-zinc-400">
+              Email
+            </label>
+            <input
+              type="email"
+              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
+              placeholder="xyz@gmail.com"
+              name="email"
+              required
+              value={Values.email}
+              onChange={change}
+            />
+          </div>
+
+          <div className="mt-4">
+            <label htmlFor="password" className="text-zinc-400">
+              Password
+            </label>
+            <input
+              type="password"
+              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
+              placeholder="password"
+              name="password"
+              required
+              value={Values.password}
+              onChange={change}
+            />
+          </div>
+
+          <div className="mt-4">
+            <label htmlFor="address" className="text-zinc-400">
+              Address
+            </label>
+            <textarea
+              className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
+              rows="5"
+              placeholder="address"
+              name="address"
+              required
+              value={Values.address}
+              onChange={change}
+            />
+          </div>
+
+          <div className="mt-4">
+            <button
+              className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition-all duration-300"
+              onClick={submit}
+            >
+              Sign Up
+            </button>
+          </div>
+
+          <p className="flex mt-4 items-center justify-center text-zinc-200 font-semibold">
+            Or
+          </p>
+
+          <p className="flex mt-4 items-center justify-center text-zinc-500 font-semibold">
+            Already have an account?&nbsp;
+            <Link to="/login" className="hover:text-blue-500">
+              <u>Log In</u>
+            </Link>
+          </p>
         </div>
-
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            style={styles.input}
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            style={styles.input}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Address</label>
-          <input
-            type="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            style={styles.input}
-            placeholder="Enter your address"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          style={{ ...styles.button, ...styles.buttonHover }}
-        >
-          Sign Up
-        </button>
-
-        <a href="/LogIn" style={styles.link}>Already have an account? Log in</a>
-      </form>
+      </div>
     </div>
   );
 };
