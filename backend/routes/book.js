@@ -66,6 +66,17 @@ router.delete("/delete-book",authenticateToken,async(req,res)=>{
 //get all books api  with limited no of books to be shown
 router.get("/get-all-books", async(req,res)=>{
     try{
+        const books=await Book.find().sort({createdAt:-1});
+                return res.json({
+            status:"Success",
+            data:books,});
+}catch(error){
+    res.status(500).json({message:"internal server error"})
+}
+
+})
+router.get("/get-recent-books", async(req,res)=>{
+    try{
         const books=await Book.find().sort({createdAt:-1}).limit(4);//for recently added
         return res.json({
             status:"Success",
