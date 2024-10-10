@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {FaGripLines} from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const links=[
@@ -8,10 +9,7 @@ const Navbar = () => {
       title:'Home',
       link:'/',
     },
-    {
-      title:'About Us',
-      link:'/about-us',
-    },
+    
     {
       title:'All Books',
       link:'/all-books',
@@ -25,6 +23,10 @@ const Navbar = () => {
       link:'/profile',
     },
   ];
+  const isLoggedIn=useSelector((state)=>state.auth.isLoggedIn);
+  if(isLoggedIn===false){
+    links.splice(2,2);
+  }
   // for the navbar icon hidden state
   const [Mobnav,setMobnav]=useState("hidden")         //by default is hidden
    return (
